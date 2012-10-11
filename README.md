@@ -74,6 +74,6 @@ Possibly the same thing for Debian/Ubuntu but I haven't tested that!
 
 * You're MySQL root password should be in /etc/mysql/grants.sql.
 
-* If you're MySQL password isn't blank, then you're need to add it to /var/www/fog/commons/config.php 
+* If you're MySQL password isn't blank, then you'll need to add it to /var/www/fog/commons/config.php 
 
 * You'll need to execute /opt/fog_0.32/bin/installfog.sh as root or via sudo.
