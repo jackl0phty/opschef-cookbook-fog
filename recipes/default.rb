@@ -19,11 +19,6 @@ script "download-untar-fog" do
   not_if "test -d /opt/fog_#{node['fog']['version']}"
 end
 
-# Install expect
-package "expect" do
-  action :install
-end
-
 # Disable IP tables
 service "iptables" do
   action :disable
