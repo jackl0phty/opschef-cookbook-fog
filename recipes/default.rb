@@ -19,14 +19,6 @@ script "download-untar-fog" do
   not_if "test -d /opt/fog_#{node['fog']['version']}"
 end
 
-# Disable IP tables
-service "iptables" do
-  action :disable
-end
-service "ip6tables" do
-  action :disable
-end
-
 # Install apache2 & php5
 case node['platform_family']
 
