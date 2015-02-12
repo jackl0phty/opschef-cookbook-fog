@@ -63,7 +63,7 @@ The following packages (based on Linux Mint) are required for FOG:
 Attributes
 ==========
 <pre><code>
-default['fog']['version'] = "0.32"
+default['fog']['version'] = "1.2.0"
 </pre></code>
 
 Usage
