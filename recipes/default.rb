@@ -6,13 +6,12 @@
 #
 
 # Download and untar FOG
-script "download-untar-fog" do
-  interpreter "bash"
+bash "download-untar-fog" do
   user "root"
   cwd "/opt"
   code <<-EOH
   wget http://downloads.sourceforge.net/project/freeghost/FOG/fog_#{node['fog']['version']}/fog_#{node['fog']['version']}.tar.gz
-  tar zxvhf fog_#{node['fog']['version']}.tar.gz
+  tar -xvzf fog_#{node['fog']['version']}.tar.gz
   rm -f fog_#{node['fog']['version']}.tar.gz
   EOH
   not_if "test -f /opt/fog_#{node['fog']['version']}.tar.gz"
@@ -31,10 +30,25 @@ case node['platform_family']
     package pkg
   end
   when "centos"
-    %w{ httpd php php-mysql tar gzip libgcc  }.each do |pkg|
+    %w{ httpd php php-mysql tar gzip libgcc }.each do |pkg|
     package pkg
   end
 end
 
 # Install MySQL server
 include_recipe "mysql::server"
+
+# Configure the firewall
+template "/etc/sysconfig/iptables" do
+  # path "/etc/sysconfig/iptables"
+  source "iptables.erb"
+  owner "root"
+  group "root"
+  mode 00600
+  # notifies :restart, resources(:service => "iptables")
+end
+
+execute "service iptables restart" do
+  user "root"
+  command "service iptables restart"
+end
